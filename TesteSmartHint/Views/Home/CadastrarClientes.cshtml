@@ -1,0 +1,107 @@
+﻿@model TesteSmartHint.Models.Clientes
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var value in ViewData.ModelState.Values)
+            {
+                foreach (var error in value.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+<h1>Cadastrar Cliente</h1>
+
+<div class="container py-5">
+    <form method="post" action="@Url.Action("CadastrarClientes", "Home")">
+        <input type="hidden" name="isFiltro" value="false" />
+
+        <!-- Área Principal -->
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome do Cliente/Razão Social:</label>
+            <input type="text" class="form-control" id="nome" name="Nome" maxlength="150" required>
+            <div class="invalid-feedback" id="nomeFeedback">Este campo é obrigatório.</div>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">E-Mail:</label>
+            <input type="email" class="form-control" id="email" name="Email" maxlength="150" required>
+            <div class="invalid-feedback" id="emailFeedback">Este campo é obrigatório.</div>
+        </div>
+        <div class="mb-3">
+            <label for="telefone" class="form-label">Telefone:</label>
+            <input type="tel" class="form-control" id="telefone" name="Telefone" maxlength="11" required>
+            <div class="invalid-feedback" id="telefoneFeedback">Este campo é obrigatório.</div>
+        </div>
+        <div class="mb-3">
+            <label for="dataCadastro" class="form-label">Data de Cadastro:</label>
+            <input type="date" class="form-control" id="dataCadastro" name="DataCadastro" value="@DateTime.Now.ToString("yyyy-MM-dd")" readonly>
+        </div>
+
+        <!-- Área de Informações Pessoais -->
+        <div class="mb-3">
+            <label for="tipoPessoa" class="form-label">Tipo de Pessoa:</label>
+            <select class="form-select" id="tipoPessoa" name="TipoPessoa" required>
+                <option selected disabled>Selecione</option>
+                <option>Física</option>
+                <option>Jurídica</option>
+            </select>
+            <div class="invalid-feedback" id="tipoPessoaFeedback">Este campo é obrigatório.</div>
+        </div>
+        <div class="mb-3">
+            <label for="cpfCnpj" class="form-label">CPF/CNPJ:</label>
+            <input type="text" class="form-control" id="cpfCnpj" name="Documento" maxlength="18" required title="Insira o CPF ou o CNPJ do Cliente.">
+            <div class="invalid-feedback" id="cpfCnpjFeedback">Este campo é obrigatório.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="inscricaoEstadual" class="form-label">Inscrição Estadual:</label>
+            <input type="text" class="form-control" id="inscricaoEstadual" name="InscricaoEstadual" maxlength="15" title="Inscrição Estadual do Cliente, selecionar Isento caso assim for.">
+            <div class="invalid-feedback" id="inscricaoEstadualFeedback">Este campo é obrigatório.</div>
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="isento" name="Isento" value="true">
+            <label class="form-check-label" for="isento">Isento</label>
+        </div>
+        <div class="mb-3" id="generoDiv" style="display: none;">
+            <label for="genero" class="form-label">Gênero:</label>
+            <select class="form-select" id="genero" name="Genero" required>
+                <option selected disabled>Selecione</option>
+                <option>Feminino</option>
+                <option>Masculino</option>
+                <option>Outro</option>
+            </select>
+            <div class="invalid-feedback" id="generoFeedback">Este campo é obrigatório.</div>
+        </div>
+        <div class="mb-3" id="dataNascimentoDiv" style="display: none;">
+            <label for="dataNascimento" class="form-label">Data de Nascimento:</label>
+            <input type="date" class="form-control" id="dataNascimento" name="DataNascimento" required>
+            <div class="invalid-feedback" id="dataNascimentoFeedback">Este campo é obrigatório.</div>
+        </div>
+
+        <!-- Área de Situação do Cliente -->
+        <div class="mb-3 form-check">
+            <input type="hidden" name="Bloqueado" value="false" />
+            <input type="checkbox" class="form-check-input" id="bloqueado" name="Bloqueado" value="true">
+            <label class="form-check-label" for="bloqueado">Bloqueado</label>
+        </div>
+
+        <div class="mb-3">
+            <label for="senha" class="form-label">Senha de Acesso:</label>
+            <input type="password" class="form-control" id="senha" name="Senha" minlength="8" maxlength="15" required>
+            <div class="invalid-feedback" id="senhaFeedback">Este campo é obrigatório.</div>
+        </div>
+        <div class="mb-3">
+            <label for="confirmarSenha" class="form-label">Confirmação de Senha:</label>
+            <input type="password" class="form-control" id="confirmarSenha" name="ConfirmarSenha" minlength="8" maxlength="15" required>
+            <div class="invalid-feedback" id="confirmarSenhaFeedback">Este campo é obrigatório.</div>
+            <div class="invalid-feedback" id="senhaNaoConfere">As senhas não conferem.</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Adicionar Cliente</button>
+    </form>
+</div>

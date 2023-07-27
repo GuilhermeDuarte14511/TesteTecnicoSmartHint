@@ -1,0 +1,94 @@
+﻿@model TesteSmartHint.Models.Clientes
+
+<div class="container py-5">
+    <h1 class="mb-4">Editar Cliente</h1>
+    <form method="post" action="@Url.Action("SalvarCliente", "Home")">
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome do Cliente/Razão Social:</label>
+            <input type="text" class="form-control" id="nome" name="Nome" maxlength="150" value="@Model.Nome" required>
+            <div class="invalid-feedback" id="nomeFeedback">Este campo é obrigatório.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">E-Mail:</label>
+            <input type="email" class="form-control" id="email" name="Email" maxlength="150" value="@Model.Email" required>
+            <div class="invalid-feedback" id="emailFeedback">Este campo é obrigatório.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="telefone" class="form-label">Telefone:</label>
+            <input type="tel" class="form-control" id="telefone" name="Telefone" maxlength="11" value="@Model.Telefone" required>
+            <div class="invalid-feedback" id="telefoneFeedback">Este campo é obrigatório.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="tipoPessoa" class="form-label">Tipo de Pessoa:</label>
+            <select class="form-select" id="tipoPessoa" name="TipoPessoa" required>
+                <option selected disabled>Selecione</option>
+                <option>Física</option>
+                <option>Jurídica</option>
+            </select>
+            <div class="invalid-feedback" id="tipoPessoaFeedback">Este campo é obrigatório.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="cpfCnpj" class="form-label">CPF/CNPJ:</label>
+            <input type="text" class="form-control" id="cpfCnpj" name="Documento" maxlength="18" value="@Model.Documento" required title="Insira o CPF ou o CNPJ do Cliente.">
+            <div class="invalid-feedback" id="cpfCnpjFeedback">Este campo é obrigatório.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="inscricaoEstadual" class="form-label">Inscrição Estadual:</label>
+            <input type="text" class="form-control" id="inscricaoEstadual" name="InscricaoEstadual" maxlength="15" value="@Model.InscricaoEstadual" required title="Insira a Inscrição Estadual do Cliente.">
+            <div class="invalid-feedback" id="inscricaoEstadualFeedback">Este campo é obrigatório.</div>
+        </div>
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="isento" name="Isento" @(Model.Isento.HasValue && Model.Isento.Value ? "checked" : "")>
+            <label class="form-check-label" for="isento">Isento</label>
+        </div>
+
+        <div class="mb-3">
+            <label for="genero" class="form-label">Gênero:</label>
+            <select class="form-select" id="genero" name="Genero" required>
+                <option selected disabled>Selecione</option>
+                <option>Feminino</option>
+                <option>Masculino</option>
+                <option>Outro</option>
+            </select>
+            <div class="invalid-feedback" id="generoFeedback">Este campo é obrigatório.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="dataNascimento" class="form-label">Data de Nascimento:</label>
+            <input type="date" class="form-control" id="dataNascimento" name="DataNascimento" value="@(Model.DataNascimento.HasValue ? Model.DataNascimento.Value.ToShortDateString() : string.Empty)" required>
+            <div class="invalid-feedback" id="dataNascimentoFeedback">Este campo é obrigatório.</div>
+        </div>
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="bloqueado" name="Bloqueado" @(Model.Bloqueado ? "checked" : "")>
+            <label class="form-check-label" for="bloqueado">Bloqueado</label>
+        </div>
+
+        <div class="mb-3">
+            <label for="senha" class="form-label">Senha:</label>
+            <input type="password" class="form-control" id="senha" name="Senha" minlength="8" maxlength="15" required>
+            <div class="invalid-feedback" id="senhaFeedback">Este campo é obrigatório.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="confirmacaoSenha" class="form-label">Confirmação de Senha:</label>
+            <input type="password" class="form-control" id="confirmacaoSenha" name="ConfirmacaoSenha" minlength="8" maxlength="15" required>
+            <div class="invalid-feedback" id="confirmarSenhaFeedback">Este campo é obrigatório.</div>
+            <div class="invalid-feedback" id="senhaNaoConfere">As senhas não conferem.</div>
+        </div>
+
+        <div class="mb-3">
+            <input type="hidden" class="form-control" id="dataCadastro" name="DataCadastro" value="@DateTime.Now.ToString("yyyy-MM-dd")">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+    </form>
+</div>

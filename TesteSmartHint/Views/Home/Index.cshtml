@@ -1,0 +1,89 @@
+﻿@model List<TesteSmartHint.Models.Clientes>
+
+<h1>Listagem de Compradores</h1>
+
+<p>Consulte os seus Clientes cadastrados na sua Loja ou realize o cadastro de novos Cliente.</p>
+
+<a class="btn btn-primary" href="@Url.Action("CadastrarClientes", "Home")">Adicionar Cliente</a>
+
+<div id="filtro" style="display: none;">
+    <h3>Filtrar Compradores</h3>
+    <form method="get">
+        <div class="row">
+            <div class="col">
+                <label for="filtroNome">Nome/Razão Social:</label>
+                <input type="text" id="filtroNome" name="filtroNome" class="form-control" placeholder="Nome ou Razão Social do Cliente" />
+            </div>
+            <div class="col">
+                <label for="filtroEmail">E-mail:</label>
+                <input type="text" id="filtroEmail" name="filtroEmail" class="form-control" placeholder="E-mail do Cliente" />
+            </div>
+            <div class="col">
+                <label for="filtroTelefone">Telefone:</label>
+                <input type="text" id="filtroTelefone" name="filtroTelefone" class="form-control" placeholder="Telefone do Cliente" />
+            </div>
+            <div class="col">
+                <label for="filtroDataCadastro">Data de Cadastro:</label>
+                <input type="date" id="filtroDataCadastro" name="filtroDataCadastro" class="form-control" placeholder="Selecione uma data ou período" />
+            </div>
+            <div class="col">
+                <label for="filtroBloqueado">Cliente bloqueado:</label>
+                <select id="filtroBloqueado" name="filtroBloqueado" class="form-control">
+                    <option value="">Todos</option>
+                    <option value="true">Sim</option>
+                    <option value="false">Não</option>
+                </select>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col">
+                <button type="submit" name="isFiltro" value="true" class="btn btn-primary">Aplicar filtros</button>
+                <button type="button" class="btn btn-secondary" onclick="limparFiltros()">Limpar filtros</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<br />
+
+<button type="button" class="btn btn-primary botao-filtrar" onclick="toggleFiltro()">Filtrar</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <input type="checkbox" id="chkTodos" />
+            </th>
+            <th>Nome/Razão Social</th>
+            <th>E-mail</th>
+            <th>Telefone</th>
+            <th>Data de Cadastro</th>
+            <th>Bloqueado</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cliente in Model)
+        {
+            <tr>
+                <td>
+                    <input type="checkbox" />
+                </td>
+                <td>@cliente.Nome</td>
+                <td>@cliente.Email</td>
+                <td>@cliente.Telefone</td>
+                <td>@cliente.DataCadastro.ToString("dd/MM/yyyy")</td>
+                <td>
+                    <input type="checkbox" @if (cliente.Bloqueado)
+                    {
+                        <text>checked</text>
+                    } disabled />
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="@Url.Action("EditarCadastro", "Home", new { id = cliente.Id })">Editar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
